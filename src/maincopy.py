@@ -31,8 +31,8 @@ def main():
         sys.exit()
 
     for dirname, dirnames, filenames in os.walk("."):
-        if "index.html" in filenames and ".git" in dirname:
-            print("index.html already exists, index.html & hidden folder is skipping...")
+        if "index.html" in filenames:
+            print("index.html already exists, skipping...")
         else:
             print("index.html does not exist, generating")
             with open(os.path.join(dirname, "index.html"), "w", encoding="utf-8") as f:
@@ -112,8 +112,7 @@ def get_file_modified_time(filepath):
     get file modified time
     """
     return dt.datetime.fromtimestamp(os.path.getmtime(filepath)).strftime(
-        # "%Y-%m-%d %H:%M:%S"
-        "%d-%m-%Y %H:%M:%S"
+        "%Y-%m-%d %H:%M:%S"
     )
     # return time.ctime(os.path.getmtime(filepath)).strftime('%X %x')
 
@@ -135,8 +134,7 @@ def get_template_foot():
     with open("/src/template/foot.html", "r", encoding="utf-8") as file:
         foot = file.read()
     foot = foot.replace(
-        "{{buildtime}}", "at " + dt.datetime.now().strftime("%d-%m-%Y %H:%M:%S")
-        # "{{buildtime}}", "at " + dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        "{{buildtime}}", "at " + dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     )
     return foot
 
